@@ -2,7 +2,7 @@
 
 A design system specification reverse-engineered from a Figma design for a **Wyze-style security-system bundle configurator** — a multi-step storefront flow (choose cameras → plan → sensors → extra protection) with a live order summary and checkout.
 
-This repository contains the **specification and architecture proposal**, not an implementation. Every token, component, and layout rule is extracted from the source Figma screens in [`design-system/media/`](design-system/media/).
+It contains both the **design spec** (reverse-engineered from the Figma screens in [`design-system/media/`](design-system/media/)) and a **working implementation** of it under [`src/`](src/) — React + TypeScript + Vite + TailwindCSS v4. Run `npm install` then `npm run dev` → http://localhost:5173.
 
 ## What's inside
 
@@ -72,16 +72,18 @@ src/
 │   └── styles/          global.css — design tokens (@theme) + base layer
 ├── features/        Feature-first: each feature owns its components, hooks, and state
 │   └── configurator/
-│       ├── components/  Feature UI assembled from the design system
-│       ├── hooks/       Hooks scoped to this feature
-│       └── state/       Builder state — reducer/store + its types
-├── pages/           Route-level compositions
-├── types/           Shared domain types (Product, Plan)
-├── utils/           Generic, dependency-free helpers (cn, formatCurrency)
-├── hooks/           Cross-feature hooks
-├── context/         App-global React context
-└── data/            Static/shared data sources
+│       ├── components/  ProductCard · BundleStep · ReviewSection · ReviewPanel · OrderSummary
+│       ├── state/       Builder state — Context + useReducer, selectors (derived totals)
+│       └── steps.ts     Step flow config (cameras → sensors → accessories)
+├── pages/           BundleBuilderPage — mounts the provider + responsive layout
+├── types/           Shared domain types (Category, Product, Variant, Plan, Bundle)
+├── data/            Normalized catalog JSON + typed `catalog.ts` accessors
+├── utils/           Generic helpers (cn, formatCurrency)
+├── hooks/           Cross-feature hooks (empty until a second feature needs one)
+└── context/         App-global React context (empty — builder state is feature-scoped)
 ```
+
+State lives in one `builderState` (items + selected variant, plan, step open/closed); `total` / `subtotal` / `discount` / `savings` / `selectedCount` are **derived** via selectors, never stored. The catalog JSON is swap-ready for a Shopify Storefront fetch (variant-level pricing, slug ids ≈ handles).
 
 ### Where does my code go? — the boundary rule
 
