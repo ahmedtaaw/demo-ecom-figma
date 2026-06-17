@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { cn } from '@/utils'
 
 type ThumbnailSize = 'xs' | 'sm' | 'md' | 'lg'
@@ -39,6 +40,8 @@ export function Thumbnail({
   objectFit = 'contain',
   className,
 }: ThumbnailProps) {
+  const [failed, setFailed] = useState(false)
+
   return (
     <div
       className={cn(
@@ -48,13 +51,17 @@ export function Thumbnail({
         className,
       )}
     >
-      <img
-        src={src}
-        alt={alt}
-        loading="lazy"
-        decoding="async"
-        className={cn('h-full w-full', fitClasses[objectFit])}
-      />
+      {/* On load failure, fall back to the empty surface box rather than a broken-image glyph. */}
+      {!failed && (
+        <img
+          src={src}
+          alt={alt}
+          loading="lazy"
+          decoding="async"
+          onError={() => setFailed(true)}
+          className={cn('h-full w-full', fitClasses[objectFit])}
+        />
+      )}
     </div>
   )
 }

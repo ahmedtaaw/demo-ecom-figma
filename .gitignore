@@ -24,3 +24,5 @@ pnpm-debug.log*
 
 .claude
 context.md
+# TypeScript incremental build info
+*.tsbuildinfo
