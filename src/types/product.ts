@@ -1,34 +1,18 @@
+import type { CategoryId } from './category'
+
+export type ProductId = string
+
 /**
- * Domain types for the configurator catalog.
- *
- * Derived from /design-system/components/inventory.md. These describe the shape
- * of product/plan data the data layer provides; they carry no behaviour.
+ * A sellable product. Pricing lives on its {@link Variant}s (matching Shopify's
+ * variant-level pricing); the "Save X%" badge is derived from a variant's
+ * original vs. current price, not stored.
  */
-
-export type ProductCategory = 'camera' | 'sensor' | 'accessory' | 'plan'
-
-export interface ColorOption {
-  label: string
-  /** Optional swatch hex — only rendered when present. */
-  color?: string
-}
-
 export interface Product {
-  id: string
-  category: ProductCategory
+  id: ProductId
+  categoryId: CategoryId
   name: string
   description: string
   image: string
-  originalPrice: number | null
-  currentPrice: number
-  colorOptions?: ColorOption[]
-  /** Discount percentage, e.g. 22 renders "Save 22%". */
-  saveBadge?: number | null
-}
-
-export interface Plan {
-  id: string
-  name: string
-  originalMonthlyPrice: number
-  currentMonthlyPrice: number
+  /** Marks a product the system cannot function without. */
+  required?: boolean
 }
