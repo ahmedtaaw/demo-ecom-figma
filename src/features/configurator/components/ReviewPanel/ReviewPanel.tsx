@@ -37,9 +37,12 @@ export function ReviewPanel() {
       {plan && (
         <ReviewSection label="Plan">
           <div className="flex items-center justify-between gap-3 px-4 py-3">
-            <Text variant="body" color="brand">
-              {plan.name}
-            </Text>
+            <span className="flex items-center gap-2">
+              <img src="/icons/cam-unlimited.svg" alt="" aria-hidden className="size-6 shrink-0" />
+              <Text variant="body" color="brand">
+                {plan.name}
+              </Text>
+            </span>
             <PriceDisplay
               originalPrice={plan.originalMonthlyPrice}
               currentPrice={plan.currentMonthlyPrice}
@@ -51,7 +54,10 @@ export function ReviewPanel() {
       )}
 
       <div className="flex items-center justify-between gap-3 px-4 py-3">
-        <Text variant="body">Fast Shipping</Text>
+        <span className="flex items-center gap-2">
+          <img src="/icons/fast-shipping.svg" alt="" aria-hidden className="size-6 shrink-0" />
+          <Text variant="body">Fast Shipping</Text>
+        </span>
         <PriceDisplay originalPrice={SHIPPING_PRICE} currentPrice={0} free originalColor="muted" />
       </div>
     </div>

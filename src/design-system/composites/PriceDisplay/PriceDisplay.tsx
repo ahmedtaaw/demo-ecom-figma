@@ -35,8 +35,12 @@ export function PriceDisplay({
   className,
 }: PriceDisplayProps) {
   const wrapper = cn(
-    'inline-flex',
-    layout === 'stacked' ? 'flex-col items-start' : 'flex-row items-baseline gap-2',
+    // whitespace-nowrap keeps each amount intact; flex-wrap lets the original and
+    // current prices stack only when the row genuinely runs out of room.
+    'inline-flex whitespace-nowrap',
+    layout === 'stacked'
+      ? 'flex-col items-start'
+      : 'flex-row flex-wrap items-baseline justify-end gap-x-2',
     className,
   )
 

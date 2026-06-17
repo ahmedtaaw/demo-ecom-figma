@@ -71,6 +71,7 @@
    */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
+
   --text-display: 2rem;
   --text-display--line-height: 1.1;
   --text-display--font-weight: 800;
@@ -92,7 +93,7 @@
   --text-label-upper--font-weight: 600;
   --text-label-upper--letter-spacing: 0.08em;
 
-  --text-body: 0.875rem;
+  --text-body: 0.75rem;
   --text-body--line-height: 1.5;
   --text-body--font-weight: 400;
 
@@ -113,12 +114,15 @@
   --shadow-panel: 0 2px 12px rgba(0, 0, 0, 0.06);
 
   /* ---- Breakpoints -----------------------------------------------------
-   * Source: layout/breakpoints.md
-   * Mobile-first: mobile (0–767px) is the unprefixed base. Tailwind's default
-   * breakpoints are cleared so only these semantic ones exist (tablet:, desktop:).
+   * Source: layout/breakpoints.md (tablet aligned to the 1024 design target).
+   * Mobile-first: mobile (0–1023px) is the unprefixed base — the single-column
+   * layout (figma_page_1). tablet: (≥1024px) is the full-width, multi-column
+   * grid with the summary below (figma_page_2/page_3). desktop: (≥1280px) is the
+   * two-column layout with a sticky order-summary sidebar (figma_page_2).
+   * Tailwind's default breakpoints are cleared so only these semantic ones exist.
    */
   --breakpoint-*: initial;
-  --breakpoint-tablet: 768px;
+  --breakpoint-tablet: 1024px;
   --breakpoint-desktop: 1280px;
 }
 
@@ -132,5 +136,8 @@
     font-family: var(--font-sans);
     background-color: var(--color-surface-page);
     color: var(--color-text-primary);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    font-weight: var(--text-body--font-weight);
   }
 }

@@ -40,15 +40,20 @@ export function ProductCard({ productId }: ProductCardProps) {
     <Card
       variant={item.quantity > 0 ? 'selected' : 'default'}
       padding="sm"
-      className="relative flex gap-4"
+      className="relative flex items-start gap-4 tablet:flex-col tablet:items-center desktop:flex-row desktop:items-start"
     >
       {percent != null && (
-        <Badge variant="brand" className="absolute left-2 top-2">
+        <Badge variant="brand" className="absolute left-2 top-2 z-10">
           Save {percent}%
         </Badge>
       )}
-      <Thumbnail src={product.image} alt={product.name} size="lg" className="shrink-0" />
-      <div className="flex min-w-0 flex-1 flex-col gap-2">
+      <Thumbnail
+        src={product.image}
+        alt={product.name}
+        size="lg"
+        className="shrink-0 tablet:mt-2"
+      />
+      <div className="flex min-w-0 flex-1 flex-col gap-2 tablet:w-full">
         <div className="flex flex-col gap-1">
           <Text variant="heading-3">{product.name}</Text>
           <Text variant="body" color="secondary">
@@ -66,7 +71,7 @@ export function ProductCard({ productId }: ProductCardProps) {
             }}
           />
         )}
-        <div className="mt-auto flex items-center justify-between gap-3">
+        <div className="mt-auto flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
           <QuantityStepper
             value={item.quantity}
             onChange={(quantity) => dispatch({ type: 'SET_QUANTITY', productId, quantity })}
