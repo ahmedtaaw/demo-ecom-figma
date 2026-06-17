@@ -58,3 +58,46 @@ The visual source of truth: Figma exports (`figma_*.png`, `Frontend Test Figma.p
 2. **Two tiers only** — indivisible primitives and small composites; page-specific UI is assembled in the feature layer.
 3. **Variants over duplication** — one `Button` with a `variant` prop, not three button components.
 4. **Single source of truth for state** — cards and the order summary read from one `builderState`, never their own.
+
+## Implementation (`src/`)
+
+React + TypeScript + Vite + TailwindCSS v4. The `@/*` path alias maps to `src/*`.
+Design tokens are wired into Tailwind via `@theme` in `src/design-system/styles/global.css`.
+
+```
+src/
+├── design-system/   Reusable UI, decoupled from any feature (the proposal's two tiers)
+│   ├── primitives/      Tier 1 — Button, Badge, Icon, Text, Divider, Thumbnail, Card
+│   ├── composites/      Tier 2 — PriceDisplay, QuantityStepper, OptionSelector, LineItem, Accordion
+│   └── styles/          global.css — design tokens (@theme) + base layer
+├── features/        Feature-first: each feature owns its components, hooks, and state
+│   └── configurator/
+│       ├── components/  Feature UI assembled from the design system
+│       ├── hooks/       Hooks scoped to this feature
+│       └── state/       Builder state — reducer/store + its types
+├── pages/           Route-level compositions
+├── types/           Shared domain types (Product, Plan)
+├── utils/           Generic, dependency-free helpers (cn, formatCurrency)
+├── hooks/           Cross-feature hooks
+├── context/         App-global React context
+└── data/            Static/shared data sources
+```
+
+### Where does my code go? — the boundary rule
+
+> **Global folders** (`hooks/`, `context/`, `data/`, `types/`) are for code used by **two or more features**.
+> **Feature folders** (`features/<name>/…`) are for code scoped to **one feature**.
+
+- Start feature-scoped. **Promote to a global folder only when a second consumer appears** — don't pre-share.
+- Feature state types (e.g. `BuilderState`) live in the feature (`features/configurator/state/`), not in global `types/`. Global `types/` holds only cross-feature domain types like `Product` and `Plan`.
+- A component graduates into `design-system/` only when it passes the [scope-boundary test](design-system/proposal/scope-boundaries.md): usable on any page, in any storefront, with no feature/business knowledge. Otherwise it stays in the feature layer.
+
+### Scripts
+
+| Command | Action |
+|---|---|
+| `npm run dev` | Start the Vite dev server |
+| `npm run build` | Type-check (`tsc -b`) and build for production |
+| `npm run preview` | Serve the production build locally |
+| `npm run lint` | Lint with ESLint |
+| `npm run format` | Format with Prettier |
