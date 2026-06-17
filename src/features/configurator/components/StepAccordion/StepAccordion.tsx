@@ -1,5 +1,6 @@
 import { type ReactNode } from 'react'
 import { Accordion, Button, Text } from '@/design-system'
+import { cn } from '@/utils'
 
 export interface StepAccordionProps {
   /** 1-based step position, shown as "Step {index} of {total}". */
@@ -37,7 +38,16 @@ export function StepAccordion({
   children,
 }: StepAccordionProps) {
   return (
-    <section className="border-b border-border-subtle">
+    <section
+      // The active (expanded) step is tinted bg-surface-page; collapsed steps stay
+      // white. Single-open accordion means this highlight moves to the next step
+      // automatically when the user advances.
+      data-active={isOpen || undefined}
+      className={cn(
+        'transition-colors',
+        isOpen ? 'bg-surface-page' : 'bg-surface-card',
+      )}
+    >
       <Text variant="label-upper" color="secondary" className="block px-6 pt-4">
         Step {index} of {total}
       </Text>

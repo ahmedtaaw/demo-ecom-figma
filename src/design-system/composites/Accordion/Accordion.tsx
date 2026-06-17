@@ -45,7 +45,7 @@ export function Accordion({
         aria-controls={panelId}
         disabled={disabled}
         onClick={toggle}
-        className="flex w-full cursor-pointer items-center gap-3 border-b border-border-subtle px-6 py-4 text-left transition-colors enabled:hover:bg-surface-page focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-inset disabled:cursor-not-allowed disabled:opacity-40"
+        className="flex w-full cursor-pointer items-center gap-3 border-b border-t border-border-subtle px-6 py-4 text-left transition-colors enabled:hover:bg-surface-page focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-inset disabled:cursor-not-allowed disabled:opacity-40"
       >
         {leadingIcon}
         {/* heading is rendered unwrapped — callers own its typography. */}

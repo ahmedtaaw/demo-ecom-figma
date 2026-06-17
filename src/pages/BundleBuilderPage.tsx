@@ -22,7 +22,7 @@ function BundleBuilder() {
             Let&apos;s get started!
           </Text>
 
-          <div className="flex flex-col overflow-hidden rounded-lg border border-border-subtle bg-surface-page">
+          <div className="flex flex-col overflow-hidden rounded-lg ">
             {steps.map((step, index) => {
               const next = steps[index + 1]
               const common = {
