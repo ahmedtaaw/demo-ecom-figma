@@ -70,8 +70,8 @@ export function Button(props: ButtonProps) {
 
   const classes = cn(
     base,
-    variantClasses[variant],
     variant === 'link' ? linkSizeClasses[size] : paddedSizeClasses[size],
+    variantClasses[variant],
     fullWidth && 'w-full',
     className,
   )
