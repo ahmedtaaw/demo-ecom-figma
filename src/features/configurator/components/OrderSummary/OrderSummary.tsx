@@ -8,7 +8,10 @@ export function OrderSummary() {
   const hasSelection = totals.selectedCount > 0
 
   return (
-    <aside className="flex flex-col gap-4 rounded-lg bg-surface-panel p-6 shadow-panel">
+    <aside
+      aria-label="Order summary"
+      className="flex flex-col gap-4 rounded-lg bg-surface-panel p-6 shadow-panel"
+    >
       <div className="flex flex-col gap-1">
         <Text variant="label-upper" color="secondary">
           Review

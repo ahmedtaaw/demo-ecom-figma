@@ -40,7 +40,7 @@ export function OptionSelector({
           <label
             key={option.label}
             className={cn(
-              'inline-flex cursor-pointer items-center gap-2 rounded-sm px-2 py-1',
+              'inline-flex cursor-pointer items-center gap-2 rounded-sm px-2 py-1 transition-colors',
               'focus-within:ring-2 focus-within:ring-brand-primary',
               selected
                 ? 'border-2 border-border-brand bg-brand-primary-subtle'

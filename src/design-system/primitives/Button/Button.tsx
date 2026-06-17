@@ -27,7 +27,7 @@ type ButtonAsAnchor = ButtonBaseProps & { as: 'a' } & Omit<
 export type ButtonProps = ButtonAsButton | ButtonAsAnchor
 
 const base =
-  'inline-flex items-center justify-center gap-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-40 aria-disabled:pointer-events-none aria-disabled:opacity-40'
+  'inline-flex cursor-pointer items-center justify-center gap-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-40 aria-disabled:pointer-events-none aria-disabled:opacity-40'
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary: 'rounded-full bg-brand-primary text-text-on-primary hover:bg-brand-primary-hover',

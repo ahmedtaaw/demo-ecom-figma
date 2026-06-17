@@ -20,7 +20,7 @@ const buttonSizeClasses: Record<StepperSize, string> = {
 // Owns its own <button> controls intentionally — coupling to the Button primitive
 // would leak Button's API (loading, `as`, …) into a borderless tap target.
 const controlClasses =
-  'text-text-secondary transition-colors enabled:hover:text-text-primary disabled:text-text-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-inset'
+  'cursor-pointer text-text-secondary transition-colors enabled:hover:text-text-primary disabled:cursor-not-allowed disabled:text-text-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-inset'
 
 export function QuantityStepper({
   value,

@@ -26,7 +26,7 @@ export function Card({ variant = 'default', padding = 'md', className, children,
   return (
     <div
       className={cn(
-        'rounded-md bg-surface-card shadow-card',
+        'rounded-md bg-surface-card shadow-card transition-colors',
         variantClasses[variant],
         paddingClasses[padding],
         className,

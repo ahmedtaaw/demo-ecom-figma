@@ -39,7 +39,7 @@ export function BundleStep({ step, index, total, nextLabel, onNext }: BundleStep
           selectedCount > 0 ? <Badge variant="neutral">{selectedCount} selected</Badge> : null
         }
       >
-        <div className="grid grid-cols-1 gap-4 tablet:grid-cols-2 desktop:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 tablet:grid-cols-2 desktop:grid-cols-4 desktop:gap-6">
           {products.map((product) => (
             <ProductCard key={product.id} productId={product.id} />
           ))}
