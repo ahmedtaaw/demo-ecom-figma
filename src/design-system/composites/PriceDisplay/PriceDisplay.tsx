@@ -45,6 +45,12 @@ export function PriceDisplay({
   if (free) {
     return (
       <span className={wrapper}>
+        {originalPrice != null && (
+          <Text as="span" variant={originalVariant[size]} color={originalColor} strikethrough>
+            <span className="sr-only">Original price </span>
+            {format(originalPrice)}
+          </Text>
+        )}
         <Text as="span" variant={currentVariant[size]} color="success">
           FREE
         </Text>

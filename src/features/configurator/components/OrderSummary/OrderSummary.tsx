@@ -1,7 +1,9 @@
-import { Button, Divider, PriceDisplay, Text } from '@/design-system'
+import { Badge, Button, Divider, PriceDisplay, Text } from '@/design-system'
 import { useBuilderState } from '@/features/configurator/state'
 import { formatCurrency } from '@/utils'
 import { ReviewPanel } from '../ReviewPanel'
+
+const INSTALLMENT_MONTHS = 12
 
 export function OrderSummary() {
   const { totals } = useBuilderState()
@@ -26,17 +28,24 @@ export function OrderSummary() {
       <ReviewPanel />
       <Divider />
 
-      <div className="flex items-baseline justify-between">
+      <div className="flex items-center justify-between gap-3">
         <Text variant="label-upper" color="secondary">
           Total
         </Text>
-        <PriceDisplay
-          size="lg"
-          originalPrice={totals.savings > 0 ? totals.subtotal : null}
-          currentPrice={totals.total}
-          originalColor="muted"
-          currentColor="brand"
-        />
+        <div className="flex flex-col items-end gap-1">
+          {hasSelection && (
+            <Badge variant="promo">
+              as low as {formatCurrency(totals.total / INSTALLMENT_MONTHS)}/mo
+            </Badge>
+          )}
+          <PriceDisplay
+            size="lg"
+            originalPrice={totals.savings > 0 ? totals.subtotal : null}
+            currentPrice={totals.total}
+            originalColor="muted"
+            currentColor="brand"
+          />
+        </div>
       </div>
 
       {totals.savings > 0 && (
@@ -51,6 +60,10 @@ export function OrderSummary() {
       <Button variant="link" size="sm" className="self-center">
         Save my system for later
       </Button>
+
+      <Text variant="caption" color="secondary" className="text-center">
+        30-day hassle-free returns · 100% satisfaction guarantee
+      </Text>
     </aside>
   )
 }

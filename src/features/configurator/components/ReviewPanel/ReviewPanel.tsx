@@ -3,6 +3,9 @@ import { LineItem, PriceDisplay, Text } from '@/design-system'
 import { selectSections, useBuilderDispatch, useBuilderState } from '@/features/configurator/state'
 import { ReviewSection } from '../ReviewSection'
 
+// Flat-rate shipping shown as a free perk — not a catalog product.
+const SHIPPING_PRICE = 5.99
+
 export function ReviewPanel() {
   const { state } = useBuilderState()
   const dispatch = useBuilderDispatch()
@@ -46,6 +49,11 @@ export function ReviewPanel() {
           </div>
         </ReviewSection>
       )}
+
+      <div className="flex items-center justify-between gap-3 px-4 py-3">
+        <Text variant="body">Fast Shipping</Text>
+        <PriceDisplay originalPrice={SHIPPING_PRICE} currentPrice={0} free originalColor="muted" />
+      </div>
     </div>
   )
 }

@@ -47,9 +47,9 @@ export function builderReducer(state: BuilderState, action: BuilderAction): Buil
       if (state.planId === action.planId) return state
       return { ...state, planId: action.planId }
     case 'TOGGLE_STEP': {
-      const current = state.steps[action.stepId] ?? 'collapsed'
-      const next = current === 'expanded' ? 'collapsed' : 'expanded'
-      return { ...state, steps: { ...state.steps, [action.stepId]: next } }
+      // Single-open accordion: opening a step collapses the others.
+      const isOpen = state.steps[action.stepId] === 'expanded'
+      return { ...state, steps: { [action.stepId]: isOpen ? 'collapsed' : 'expanded' } }
     }
     default:
       return state

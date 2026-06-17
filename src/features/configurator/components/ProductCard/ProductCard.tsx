@@ -37,40 +37,46 @@ export function ProductCard({ productId }: ProductCardProps) {
   const hasOptions = variants.length > 1
 
   return (
-    <Card variant={item.quantity > 0 ? 'selected' : 'default'} className="relative flex flex-col gap-4">
+    <Card
+      variant={item.quantity > 0 ? 'selected' : 'default'}
+      padding="sm"
+      className="relative flex gap-4"
+    >
       {percent != null && (
-        <Badge variant="brand" className="absolute left-4 top-4">
+        <Badge variant="brand" className="absolute left-2 top-2">
           Save {percent}%
         </Badge>
       )}
-      <Thumbnail src={product.image} alt={product.name} size="lg" className="mx-auto" />
-      <div className="flex flex-col gap-1">
-        <Text variant="heading-3">{product.name}</Text>
-        <Text variant="body" color="secondary">
-          {product.description}
-        </Text>
-      </div>
-      {hasOptions && (
-        <OptionSelector
-          label={`${product.name} options`}
-          options={variants.map((variant) => ({ label: variant.label, color: variant.color }))}
-          value={selectedVariant.label}
-          onChange={(label) => {
-            const next = variants.find((variant) => variant.label === label)
-            if (next) dispatch({ type: 'SET_VARIANT', productId, variantId: next.id })
-          }}
-        />
-      )}
-      <div className="mt-auto flex items-center justify-between gap-3">
-        <QuantityStepper
-          value={item.quantity}
-          onChange={(quantity) => dispatch({ type: 'SET_QUANTITY', productId, quantity })}
-        />
-        <PriceDisplay
-          originalPrice={selectedVariant.originalPrice}
-          currentPrice={selectedVariant.currentPrice}
-          free={selectedVariant.currentPrice === 0}
-        />
+      <Thumbnail src={product.image} alt={product.name} size="lg" className="shrink-0" />
+      <div className="flex min-w-0 flex-1 flex-col gap-2">
+        <div className="flex flex-col gap-1">
+          <Text variant="heading-3">{product.name}</Text>
+          <Text variant="body" color="secondary">
+            {product.description}
+          </Text>
+        </div>
+        {hasOptions && (
+          <OptionSelector
+            label={`${product.name} options`}
+            options={variants.map((variant) => ({ label: variant.label, color: variant.color }))}
+            value={selectedVariant.label}
+            onChange={(label) => {
+              const next = variants.find((variant) => variant.label === label)
+              if (next) dispatch({ type: 'SET_VARIANT', productId, variantId: next.id })
+            }}
+          />
+        )}
+        <div className="mt-auto flex items-center justify-between gap-3">
+          <QuantityStepper
+            value={item.quantity}
+            onChange={(quantity) => dispatch({ type: 'SET_QUANTITY', productId, quantity })}
+          />
+          <PriceDisplay
+            originalPrice={selectedVariant.originalPrice}
+            currentPrice={selectedVariant.currentPrice}
+            free={selectedVariant.currentPrice === 0}
+          />
+        </div>
       </div>
     </Card>
   )
