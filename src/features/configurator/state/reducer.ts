@@ -1,12 +1,12 @@
 import { defaultBundle, products, variants } from '@/data'
-import type { BuilderAction, BuilderItem, BuilderState } from './types'
+import type { BuilderAction, BuilderItem, BuilderState, StepStatus } from './types'
 
 /**
  * Seeds state from the catalog: every product starts with its first variant and
  * quantity 0, then the default bundle applies its selected variants/quantities.
  * Computed lazily by the reducer hook (never on every render).
  */
-export function createInitialState(): BuilderState {
+export function createInitialState(initialSteps: Record<string, StepStatus> = {}): BuilderState {
   const items: Record<string, BuilderItem> = {}
 
   for (const product of products) {
@@ -21,7 +21,7 @@ export function createInitialState(): BuilderState {
     items[variant.productId] = { variantId: variant.id, quantity: bundleItem.quantity }
   }
 
-  return { items, planId: defaultBundle.planId, steps: {} }
+  return { items, planId: defaultBundle.planId, steps: initialSteps }
 }
 
 export function builderReducer(state: BuilderState, action: BuilderAction): BuilderState {
