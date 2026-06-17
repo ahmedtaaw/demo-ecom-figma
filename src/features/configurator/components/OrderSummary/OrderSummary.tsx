@@ -12,7 +12,7 @@ export function OrderSummary() {
   return (
     <aside
       aria-label="Order summary"
-      className="flex flex-col gap-4 rounded-lg bg-surface-panel p-6 shadow-panel tablet:grid tablet:grid-cols-2 tablet:gap-8 desktop:flex desktop:flex-col desktop:gap-4"
+      className="flex flex-col gap-4 rounded-lg bg-surface-page p-6 shadow-panel tablet:grid tablet:grid-cols-2 tablet:gap-8 desktop:flex desktop:flex-col desktop:gap-4"
     >
       {/* Details column (left at tablet) — line items, plan, shipping. */}
       <div className="flex flex-col gap-4">
@@ -34,31 +34,26 @@ export function OrderSummary() {
         <Divider className="tablet:hidden desktop:block" />
 
         <div className="flex items-center justify-between gap-3">
-          <Text variant="label-upper" color="secondary">
-            Total
-          </Text>
-          <div className="flex items-center gap-3">
+          {hasSelection && (
+            <img
+              src="/badges/guarantee.png"
+              alt="100% Wyze satisfaction guarantee"
+              className="size-16 shrink-0"
+            />
+          )}
+          <div className="flex flex-col items-end gap-1">
             {hasSelection && (
-              <img
-                src="/badges/guarantee.png"
-                alt="100% Wyze satisfaction guarantee"
-                className="size-14 shrink-0"
-              />
+              <Badge variant="promo">
+                as low as {formatCurrency(totals.total / INSTALLMENT_MONTHS)}/mo
+              </Badge>
             )}
-            <div className="flex flex-col items-end gap-1">
-              {hasSelection && (
-                <Badge variant="promo">
-                  as low as {formatCurrency(totals.total / INSTALLMENT_MONTHS)}/mo
-                </Badge>
-              )}
-              <PriceDisplay
-                size="lg"
-                originalPrice={totals.savings > 0 ? totals.subtotal : null}
-                currentPrice={totals.total}
-                originalColor="muted"
-                currentColor="brand"
-              />
-            </div>
+            <PriceDisplay
+              size="xl"
+              originalPrice={totals.savings > 0 ? totals.subtotal : null}
+              currentPrice={totals.total}
+              originalColor="muted"
+              currentColor="brand"
+            />
           </div>
         </div>
 
@@ -74,10 +69,6 @@ export function OrderSummary() {
         <Button variant="link" size="sm" className="self-center">
           Save my system for later
         </Button>
-
-        <Text variant="caption" color="secondary" className="text-center">
-          30-day hassle-free returns · 100% satisfaction guarantee
-        </Text>
       </div>
     </aside>
   )

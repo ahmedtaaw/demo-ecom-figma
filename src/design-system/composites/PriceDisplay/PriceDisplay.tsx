@@ -1,7 +1,7 @@
 import { Text } from '@/design-system/primitives'
 import { cn, formatCurrency } from '@/utils'
 
-type PriceSize = 'sm' | 'md' | 'lg'
+type PriceSize = 'sm' | 'md' | 'lg' | 'xl'
 
 export type PriceDisplayProps = {
   currentPrice?: number | null
@@ -15,12 +15,14 @@ export type PriceDisplayProps = {
   subscriptionSuffix?: string | null
   currentColor?: 'primary' | 'brand'
   originalColor?: 'error' | 'muted'
+  /** Color of the "FREE" label (defaults to success green). */
+  freeColor?: 'success' | 'brand'
   className?: string
 }
 
 // Bold tokens for the current price; lighter tokens for the struck-through original.
-const currentVariant = { sm: 'price', md: 'heading-2', lg: 'heading-1' } as const
-const originalVariant = { sm: 'caption', md: 'body', lg: 'body' } as const
+const currentVariant = { sm: 'price', md: 'heading-2', lg: 'heading-1', xl: 'display' } as const
+const originalVariant = { sm: 'caption', md: 'body', lg: 'body', xl: 'body' } as const
 
 export function PriceDisplay({
   currentPrice = null,
@@ -32,6 +34,7 @@ export function PriceDisplay({
   subscriptionSuffix = null,
   currentColor = 'primary',
   originalColor = 'error',
+  freeColor = 'success',
   className,
 }: PriceDisplayProps) {
   const wrapper = cn(
@@ -39,7 +42,7 @@ export function PriceDisplay({
     // current prices stack only when the row genuinely runs out of room.
     'inline-flex whitespace-nowrap',
     layout === 'stacked'
-      ? 'flex-col items-start'
+      ? 'flex-col items-end gap-0.5'
       : 'flex-row flex-wrap items-baseline justify-end gap-x-2',
     className,
   )
@@ -55,7 +58,7 @@ export function PriceDisplay({
             {format(originalPrice)}
           </Text>
         )}
-        <Text as="span" variant={currentVariant[size]} color="success">
+        <Text as="span" variant={currentVariant[size]} color={freeColor}>
           FREE
         </Text>
       </span>

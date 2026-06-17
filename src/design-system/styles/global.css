@@ -37,6 +37,7 @@
   --color-text-on-primary: #ffffff;
 
   /* Surfaces (depth via background layering: page → panel → card) */
+  --color-main-page: #ffffff;
   --color-surface-page: #edf4ff; /* also the active/expanded step background */
   --color-surface-card: #ffffff;
   --color-surface-panel: #f2f7ff;
@@ -134,7 +135,7 @@
 
   body {
     font-family: var(--font-sans);
-    background-color: var(--color-surface-page);
+    background-color: var(--color-main-page);
     color: var(--color-text-primary);
     font-size: var(--text-body);
     line-height: var(--text-body--line-height);

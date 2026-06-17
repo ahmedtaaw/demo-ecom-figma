@@ -20,9 +20,9 @@ export function ReviewPanel() {
             <LineItem
               key={line.productId}
               thumbnail={{ src: line.product.image, alt: line.product.name }}
-              name={line.product.name}
-              meta={line.variant.label === 'Default' ? null : line.variant.label}
+              name={line.product.required ? `${line.product.name} (Required)` : line.product.name}
               quantity={line.quantity}
+              minQuantity={line.product.required ? 1 : 0}
               onQuantityChange={(quantity) =>
                 dispatch({ type: 'SET_QUANTITY', productId: line.productId, quantity })
               }
@@ -44,8 +44,10 @@ export function ReviewPanel() {
               </Text>
             </span>
             <PriceDisplay
+              layout="stacked"
               originalPrice={plan.originalMonthlyPrice}
               currentPrice={plan.currentMonthlyPrice}
+              currentColor="brand"
               originalColor="muted"
               subscriptionSuffix="/mo"
             />
@@ -58,7 +60,14 @@ export function ReviewPanel() {
           <img src="/icons/fast-shipping.svg" alt="" aria-hidden className="size-6 shrink-0" />
           <Text variant="body">Fast Shipping</Text>
         </span>
-        <PriceDisplay originalPrice={SHIPPING_PRICE} currentPrice={0} free originalColor="muted" />
+        <PriceDisplay
+          layout="stacked"
+          originalPrice={SHIPPING_PRICE}
+          currentPrice={0}
+          free
+          originalColor="muted"
+          freeColor="brand"
+        />
       </div>
     </div>
   )

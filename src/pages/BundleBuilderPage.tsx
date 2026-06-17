@@ -14,15 +14,15 @@ function BundleBuilder() {
   const dispatch = useBuilderDispatch()
 
   return (
-    <main className="min-h-dvh bg-surface-page">
+    <main className="min-h-dvh">
       <div className="mx-auto flex max-w-[1280px] flex-col gap-8 px-4 py-8 tablet:px-8 desktop:flex-row desktop:px-12">
-        <div className="min-w-0 flex-1">
+        <div className="min-w-0 flex-1 ">
           {/* Hero is mobile-only; the wider layouts open straight into the first step. */}
           <Text variant="display" className="mb-6 block tablet:hidden">
             Let&apos;s get started!
           </Text>
 
-          <div className="flex flex-col overflow-hidden rounded-lg border border-border-subtle bg-surface-card">
+          <div className="flex flex-col overflow-hidden rounded-lg border border-border-subtle bg-surface-page">
             {steps.map((step, index) => {
               const next = steps[index + 1]
               const common = {

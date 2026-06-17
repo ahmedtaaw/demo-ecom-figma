@@ -12,6 +12,8 @@ export type LineItemProps = {
   quantity: number
   /** Pass null for a read-only row (no stepper rendered). */
   onQuantityChange?: ((next: number) => void) | null
+  /** Lower bound for the stepper — e.g. 1 for a required line (disables minus). */
+  minQuantity?: number
   originalPrice?: number | null
   currentPrice: number
   free?: boolean
@@ -27,6 +29,7 @@ export function LineItem({
   meta = null,
   quantity,
   onQuantityChange = null,
+  minQuantity = 0,
   originalPrice = null,
   currentPrice,
   free = false,
@@ -40,10 +43,10 @@ export function LineItem({
         className,
       )}
     >
-      <Thumbnail src={thumbnail.src} alt={thumbnail.alt} size={thumbnailSize[size]} />
+      <Thumbnail src={thumbnail.src} alt={thumbnail.alt} size={thumbnailSize[size]} className="shrink-0" />
 
       <div className="min-w-0 flex-1">
-        <Text variant="body" color="primary" truncate>
+        <Text variant="body" color="primary" className="line-clamp-2">
           {name}
         </Text>
         {meta && (
@@ -54,7 +57,12 @@ export function LineItem({
       </div>
 
       {onQuantityChange ? (
-        <QuantityStepper value={quantity} onChange={onQuantityChange} size={size} />
+        <QuantityStepper
+          value={quantity}
+          min={minQuantity}
+          onChange={onQuantityChange}
+          size={size}
+        />
       ) : (
         <Text as="span" variant="body" color="secondary" aria-label={`Quantity: ${quantity}`}>
           ×{quantity}
@@ -62,10 +70,14 @@ export function LineItem({
       )}
 
       <PriceDisplay
+        layout="stacked"
         currentPrice={currentPrice}
         originalPrice={originalPrice}
         free={free}
+        currentColor="brand"
         originalColor="muted"
+        freeColor="brand"
+        className="shrink-0"
       />
     </div>
   )
